@@ -26,13 +26,11 @@ class Game {
       DOM-элемент текущего символа находится в свойстве this.currentSymbol.
      */
 	  
-	  
-	  
 	document.addEventListener("keypress", (event) => {
 		let currentKeySymbol = event.key.toLowerCase();
 //		console.log(currentKeySymbol);
 //		console.log(this.currentSymbol.textContent);
-
+		
 		if (currentKeySymbol === this.currentSymbol.textContent) {
 			this.success();
 		} else {
@@ -41,6 +39,25 @@ class Game {
 	})
   }
 
+	
+	timer() {
+		let wordLength = document.querySelectorAll(".symbol").length;
+	//	console.log(wordLength);
+
+		let timerElement = document.querySelector(".timer__inner");
+		timerElement.innerHTML = wordLength;
+
+		let newTimer = setInterval(() => {
+			timerElement.innerHTML--;
+
+			if (timerElement.textContent === "0") {
+				clearInterval(newTimer);
+				this.fail();
+			}
+		}, 1000);
+	}
+	
+	
   success() {
     if(this.currentSymbol.classList.contains("symbol_current")) this.currentSymbol.classList.remove("symbol_current");
     this.currentSymbol.classList.add('symbol_correct');
@@ -56,6 +73,7 @@ class Game {
       this.reset();
     }
     this.setNewWord();
+	this.timer();
   }
 
   fail() {
@@ -64,12 +82,15 @@ class Game {
       this.reset();
     }
     this.setNewWord();
+	this.timer();
   }
 
   setNewWord() {
     const word = this.getWord();
 
     this.renderWord(word);
+	  
+	this.timer();
   }
 
   getWord() {
