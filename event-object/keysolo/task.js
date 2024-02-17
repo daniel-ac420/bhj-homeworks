@@ -73,7 +73,7 @@ class Game {
       this.reset();
     }
     this.setNewWord();
-	this.timer();
+//	this.timer();
   }
 
   fail() {
@@ -82,7 +82,7 @@ class Game {
       this.reset();
     }
     this.setNewWord();
-	this.timer();
+//	this.timer();
   }
 
   setNewWord() {
