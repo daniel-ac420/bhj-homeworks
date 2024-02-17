@@ -22,7 +22,6 @@ for (let product of products) {
 	buttonAddToCart.addEventListener("click", function() {
 		let productCart = document.createElement("div");
 		let productDataID = product.getAttribute("data-id");
-//		console.log("productDataID = " + productDataID);
 		let productImageLink = product.querySelector(".product__image").src;
 		productCart.classList.add("cart__product");
 		productCart.setAttribute("data-id", productDataID);
@@ -33,18 +32,15 @@ for (let product of products) {
 		
 		let currentCartProducts = cartProducts.querySelectorAll(".cart__product");
 		
-		for (let currentCartProduct of currentCartProducts) {
-			let currentCartProductDataID = currentCartProduct.getAttribute("data-id");
-//			console.log("currentCartProductDataID = " + currentCartProductDataID);			
-			
-			if (currentCartProductDataID !== productDataID || currentCartProductDataID === undefined) {
-				cartProducts.append(productCart);
-			} else {
-				let productCartCount = currentCartProduct.querySelector(".cart__product-count");
-				productCartCountValue = Number(productCartCount.innerHTML) + Number(productQuantity.innerHTML);
-			}
+		const productInCart = currentCartProducts.find(function(element) {
+			return productDataID == element.attr("data-id");
+		})
+		
+		if (productInCart) {
+			let productCartCount = currentCartProduct.querySelector(".cart__product-count");
+			productCartCount += productQuantity.innerHTML;
+		} else {
+			cartProducts.append(productCart);
 		}
-			
-//		cartProducts.append(productCart);
 	})
 }
