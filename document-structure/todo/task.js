@@ -3,13 +3,11 @@ const tasksList = document.querySelector("#tasks__list");
 
 const button = document.querySelector("#tasks__add");
 
-document.addEventListener("keydown", task);
 button.addEventListener("click", task);
 
 function task(event) {
-	if (event.key === "Enter" || event.type === "click") {
-		if (input.value !== "") {
-//			console.log(input.value);
+	if (event.type === "click") {
+		if (input.value.trim() !== "") {
 			event.preventDefault();
 			
 			let newTask = document.createElement("div");
@@ -32,7 +30,5 @@ function task(event) {
 		} else {
 			event.preventDefault();
 		}
-	} else {
-//		console.log(false);
 	}
 }
