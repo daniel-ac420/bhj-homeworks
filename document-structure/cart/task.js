@@ -30,15 +30,27 @@ for (let product of products) {
 			<div class="cart__product-count">${productQuantity.innerHTML}</div>
 		`);
 		
-		let currentCartProducts = cartProducts.querySelectorAll(".cart__product");
+		let currentCartProducts = Array.from(cartProducts.querySelectorAll(".cart__product"));
 		
 		const productInCart = currentCartProducts.find(function(element) {
-			return productDataID == element.attr("data-id");
+			return productDataID === element.getAttribute("data-id");
 		})
 		
 		if (productInCart) {
-			let productCartCount = currentCartProduct.querySelector(".cart__product-count");
-			productCartCount += productQuantity.innerHTML;
+			let node = null;
+			for (let item of currentCartProducts) {
+				if (item.getAttribute("data-id") === productDataID) {
+					for (let i = 0; i < item.children.length; i++) {
+						if (item.children.className = "cart__product-count") {
+							node = item.children[i + 1];
+							let num = Number(node.innerHTML);
+							num += Number(productQuantity.innerHTML);
+							node.textContent = num;
+							break;
+						}
+					}
+				}
+			}
 		} else {
 			cartProducts.append(productCart);
 		}
