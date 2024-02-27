@@ -4,7 +4,7 @@ class Game {
     this.wordElement = container.querySelector('.word');
     this.winsElement = container.querySelector('.status__wins');
     this.lossElement = container.querySelector('.status__loss');
-
+	this.newTimer = null;
     this.reset();
 
     this.registerEvents();
@@ -41,17 +41,18 @@ class Game {
 
 	
 	timer() {
+		clearInterval(this.newTimer);
+		
 		let wordLength = document.querySelectorAll(".symbol").length;
 	//	console.log(wordLength);
 
 		let timerElement = document.querySelector(".timer__inner");
 		timerElement.innerHTML = wordLength;
 
-		let newTimer = setInterval(() => {
+		this.newTimer = setInterval(() => {
 			timerElement.innerHTML--;
 
 			if (timerElement.textContent === "0") {
-				clearInterval(newTimer);
 				this.fail();
 			}
 		}, 1000);
